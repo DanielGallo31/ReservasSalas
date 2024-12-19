@@ -1,4 +1,4 @@
-Para ejecutar este proyecto es necesario tener SDK .Net core
+Para ejecutar este proyecto es necesario tener SDK .Net core 8
 https://dotnet.microsoft.com/es-es/download
 
 Para descargar version4.8 .Net
