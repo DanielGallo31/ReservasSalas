@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "General";
+}
+@using salasyreservas.Models
+@model SalasReservasModel
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+</head>
+
+<body>
+    <div>
+        <div class="mainbox row">
+            <div class="col col-md-12 col-lg-6 col-xl-4">
+                <h1>Salas</h1>
+                <div class="border rounded p-3">
+                    <table class="table table-striped ">
+                        <thead>
+                            <tr>
+                                <th>#Sala</th>
+                                <th>Nombre</th>
+                                <th>Aforo</th>
+                                <th>Disponible</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var sala in Model.Salas)
+                            {
+                                <tr>
+                                    <td>@sala.Id</td>
+                                    <td>@sala.Nombre</td>
+                                    <td>@sala.Capacidad</td>
+                                    <td>@(sala.Dispo ? "Sí" : "No")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class=" col col-md-12 col-lg-auto col-xl-8">
+                <h1>Reservas</h1>
+                <div class="border rounded p-3">
+                    <table class="table table-striped  ">
+                        <thead>
+                            <tr>
+                                <th>#Reserva</th>
+                                <th>Sala</th>
+                                <th>Fecha</th>
+                                <th>Reservador</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var reserva in Model.Reservas)
+                            {
+                                <tr>
+                                    <td>@reserva.Id</td>
+                                    <td>@reserva.IdSala</td>
+                                    <td>@reserva.FechaReserva</td>
+                                    <td>@reserva.Reservador</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
