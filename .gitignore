@@ -28,3 +28,6 @@ obj/
 
 appsettings.json
 appsettings.Development.json
+
+.gitignore
+
