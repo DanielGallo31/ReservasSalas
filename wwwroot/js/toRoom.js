@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     const bookButton = document.getElementById('toroom');
+    const getbookButton = document.getElementById('togetbook');
     
     const form = document.getElementById('newRoomForm');
     
@@ -45,6 +46,32 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             console.error('Error:', error);
             alert("Hubo un problema al procesar la solicitud de la sala.");
+        });
+    });
+
+    getbookButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        
+        var url = '/Sala/ObtenerSalas';
+        console.log(url);
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("¡Salas obtenidas!");
+                //window.location.href = '@Url.Action("agregar", "sala")'; 
+            } else {
+                alert("Hubo un error en la obtención de salas.");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Hubo un problema al procesar la solicitud de obtener salas.");
         });
     });
 });
