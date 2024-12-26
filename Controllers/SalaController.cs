@@ -24,10 +24,18 @@ namespace salasyreservas.Controllers
 
             try
             {
-                await _salaService.GetAllSalas();
+                var salas = await _salaService.GetAllSalas();
 
                 // Retornar los datos en formato JSON
-                return Json(new { success = true });
+                if (salas != null && salas.Any())
+                {
+                    _logger.LogInformation("Nombres de las salas: {salas}, desde controller", salas.Select(sala => sala.Nombre).ToList());
+                    return Json(new { success = true, data = salas });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "No se encontraron salas." });
+                }
             }
             catch (Exception ex)
             {

@@ -34,14 +34,12 @@ public class HomeController : Controller
             new Reserva {Id=7,IdSala=1,FechaReserva=DateTime.Parse("2024-12-20 08:00:00"),Reservador="Yuon-Jiim"},
         };
 
+        ViewBag.Salas = salas;
+        ViewBag.Reservas = reservas;
 
-        var salasReservas = new SalasReservasModel
-        {
-            Salas = salas,
-            Reservas = reservas
-        };
 
-        return View(salasReservas);
+
+        return View();
 
     }
 

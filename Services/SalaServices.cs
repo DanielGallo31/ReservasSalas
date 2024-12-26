@@ -17,7 +17,7 @@ namespace salasyreservas.Services
             _databaseAccess = databaseAccess;
         }
 
-        public async Task GetAllSalas()
+        public async Task<List<Sala>> GetAllSalas()
         {
             string sql = "SELECT * FROM SALAS";
             try
@@ -27,11 +27,13 @@ namespace salasyreservas.Services
                 var nombresSalas = result.Select(sala => sala.Nombre).ToList();
 
                 _logger.LogInformation("Nombres de las salas: {nombresSalas}", string.Join(", ", nombresSalas));
+                return result.ToList();
 
             }
             catch (Exception ex)
             {
                 _logger.LogError("Error al obtener las salas: {Error}", ex.Message);
+                return new List<Sala>();
             }
         }
     }

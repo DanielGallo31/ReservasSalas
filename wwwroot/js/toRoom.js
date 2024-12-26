@@ -52,8 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
     getbookButton.addEventListener('click', function(event) {
         event.preventDefault();
         
+        // Obtiene el contenedor de salas y muestra un mensaje de carga
+        const salasContainer = document.getElementById("salasContainer");
+        salasContainer.innerHTML='';
+        
         var url = '/Sala/ObtenerSalas';
-        console.log(url);
+        console.log("Llamada a URL:", url);
+        
         fetch(url, {
             method: 'GET',
             headers: {
@@ -63,8 +68,20 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert("¡Salas obtenidas!");
-                //window.location.href = '@Url.Action("agregar", "sala")'; 
+                console.log("¡Salas obtenidas!");
+                data.data.forEach(sala => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                    <tr>
+                        <td>${sala.id}</td>
+                        <td>${sala.nombre}</td>
+                        <td>${sala.capacidad}</td>
+                        <td>${sala.dispo ? "Sí" : "No"}</td>
+                    </tr>
+                    `;
+                    salasContainer.append(row);
+                });
+             
             } else {
                 alert("Hubo un error en la obtención de salas.");
             }
@@ -74,4 +91,5 @@ document.addEventListener('DOMContentLoaded', function() {
             alert("Hubo un problema al procesar la solicitud de obtener salas.");
         });
     });
+    
 });

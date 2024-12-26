@@ -1,8 +1,8 @@
 ﻿@{
     ViewData["Title"] = "General";
+    var salas = ViewBag.Salas as List<Sala>;
+    var reservas = ViewBag.Reservas as List<Reserva>;
 }
-@using salasyreservas.Models
-@model SalasReservasModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,53 +19,67 @@
             <div class="col col-md-12 col-lg-6 col-xl-4">
                 <h1>Salas</h1>
                 <div class="border rounded p-3">
-                    <table class="table table-striped ">
-                        <thead>
-                            <tr>
-                                <th>#Sala</th>
-                                <th>Nombre</th>
-                                <th>Aforo</th>
-                                <th>Disponible</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var sala in Model.Salas)
-                            {
+                    @if (ViewBag.Salas != null)
+                    {
+                        <table class="table table-striped ">
+                            <thead>
                                 <tr>
-                                    <td>@sala.Id</td>
-                                    <td>@sala.Nombre</td>
-                                    <td>@sala.Capacidad</td>
-                                    <td>@(sala.Dispo ? "Sí" : "No")</td>
+                                    <th>#Sala</th>
+                                    <th>Nombre</th>
+                                    <th>Aforo</th>
+                                    <th>Disponible</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var sala in ViewBag.Salas as List<Sala> ?? new List<Sala>())
+                                {
+                                    <tr>
+                                        <td>@sala.Id</td>
+                                        <td>@sala.Nombre</td>
+                                        <td>@sala.Capacidad</td>
+                                        <td>@(sala.Dispo ? "Sí" : "No")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No se encontraron salas.</p>
+                    }
                 </div>
             </div>
             <div class=" col col-md-12 col-lg-auto col-xl-8">
                 <h1>Reservas</h1>
                 <div class="border rounded p-3">
-                    <table class="table table-striped  ">
-                        <thead>
-                            <tr>
-                                <th>#Reserva</th>
-                                <th>Sala</th>
-                                <th>Fecha</th>
-                                <th>Reservador</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var reserva in Model.Reservas)
-                            {
+                    @if (ViewBag.Reservas != null)
+                    {
+                        <table class="table table-striped  ">
+                            <thead>
                                 <tr>
-                                    <td>@reserva.Id</td>
-                                    <td>@reserva.IdSala</td>
-                                    <td>@reserva.FechaReserva</td>
-                                    <td>@reserva.Reservador</td>
+                                    <th>#Reserva</th>
+                                    <th>Sala</th>
+                                    <th>Fecha</th>
+                                    <th>Reservador</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var reserva in ViewBag.Reservas as List<Reserva> ?? new List<Reserva>())
+                                {
+                                    <tr>
+                                        <td>@reserva.Id</td>
+                                        <td>@reserva.IdSala</td>
+                                        <td>@reserva.FechaReserva</td>
+                                        <td>@reserva.Reservador</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No se encontraron reservas.</p>
+                    }
                 </div>
             </div>
         </div>
