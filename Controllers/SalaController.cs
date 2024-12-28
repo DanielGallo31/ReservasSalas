@@ -21,11 +21,9 @@ namespace salasyreservas.Controllers
         public async Task<JsonResult> ObtenerSalas()
         {
             // SQL para obtener los datos.
-
             try
             {
                 var salas = await _salaService.GetAllSalas();
-
                 // Retornar los datos en formato JSON
                 if (salas != null && salas.Any())
                 {
@@ -46,16 +44,15 @@ namespace salasyreservas.Controllers
         }
 
 
-
-
         [HttpPost]
-        public JsonResult Agregar([FromBody] Sala request)
+        public async Task<JsonResult> Agregar([FromBody] Sala request)
         {
-            _logger.LogInformation("Creando nueva sala...{Nombre},{Capacidad}.", request.Nombre, request.Capacidad);
-
             try
             {
-                return Json(new { success = true });
+                _logger.LogInformation("Nueva sala: Nombre:{Nombre},Capacidad:{Capacidad}.", request.Nombre, request.Capacidad);
+                var result = await _salaService.SaveSala(request);
+                _logger.LogInformation("Creando nueva sala..." + result);
+                return Json(new { success = true, data = result });
             }
             catch (Exception ex)
             {

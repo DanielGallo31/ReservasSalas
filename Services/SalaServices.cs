@@ -23,9 +23,7 @@ namespace salasyreservas.Services
             try
             {
                 var result = await _databaseAccess.QueryAsync<Sala>(sql);
-
                 var nombresSalas = result.Select(sala => sala.Nombre).ToList();
-
                 _logger.LogInformation("Nombres de las salas: {nombresSalas}", string.Join(", ", nombresSalas));
                 return result.ToList();
 
@@ -35,6 +33,14 @@ namespace salasyreservas.Services
                 _logger.LogError("Error al obtener las salas: {Error}", ex.Message);
                 return new List<Sala>();
             }
+        }
+
+        public async Task<int> SaveSala(Sala sala)
+        {
+            string sql = @"INSERT INTO SALAS (Nombre, Capacidad, Dispo)VALUES (@Nombre, @Capacidad, 1);";
+            var parameters = new { Nombre = sala.Nombre, Capacidad = sala.Capacidad };
+            _logger.LogInformation("Insertando desde services" + sql + sala.Nombre);
+            return await _databaseAccess.ExecuteAsync(sql, parameters);
         }
     }
 }

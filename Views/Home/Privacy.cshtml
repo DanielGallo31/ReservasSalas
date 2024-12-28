@@ -4,77 +4,114 @@
 <div>
     <div class="mainbox row">
         <div class="col col-12 col-lg-6 col-xl-4">
+            @* Formulario salas *@
             <h1>Salas</h1>
             <form id="newRoomForm" class="was-validated border rounded p-3">
-                <div class="mb-3">
-                    <label for="validationRoomName" class="form-label">Nombre sala</label>
-                    <input type="text" class="form-control" id="validationRoomName" placeholder="" required></input>
-                    <div class="invalid-feedback">
-                        Por favor proporcione el nombre de sala.
+                <div class="d-flex flex-row">
+                    <div class="mb-3 col">
+                        <label for="validationRoomName" class="form-label">Nombre sala</label>
+                        <input type="text" class="form-control" id="validationRoomName" placeholder="" required></input>
+                        <div class="invalid-feedback">
+                            Por favor proporcione el nombre de sala.
+                        </div>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <label for="validationRoomCapacity" class="form-label">Capacidad</label>
-                    <input type="number" class="form-control" id="validationRoomCapacity" placeholder="" required
-                        min="1"></input>
-                    <div class="invalid-feedback">
-                        Por favor proporcione la capacidad de sala.
+                    <div class="mb-3 col">
+                        <label for="validationRoomCapacity" class="form-label">Capacidad</label>
+                        <input type="number" class="form-control" id="validationRoomCapacity" placeholder="" required
+                            min="1"></input>
+                        <div class="invalid-feedback">
+                            Por favor proporcione la capacidad de sala.
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 mb-3">
                     <button id="toroom" class="btn btn-primary" type="submit">Guardar</button>
                 </div>
             </form>
+            @* Formulario salas *@
+            @* Lista salas *@
             <h1>Salas Obtenidas</h1>
-            <div>
-                <table class="table table-striped ">
-                    <thead>
-                        <tr>
-                            <th>#Sala</th>
-                            <th>Nombre</th>
-                            <th>Capacidad</th>
-                            <th>Disponible</th>
-                        </tr>
-                    </thead>
-                    <tbody id="salasContainer">
+            <div class="border rounded p-3">
+                <table class="table table-striped m-0">
 
-                    </tbody>
                 </table>
+                <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
+                    data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0"
+                    style="max-height: 200px; overflow-y: auto;">
+                    <table class="table table-striped m-0">
+                        <thead class="sticky-top bg-light ">
+                            <tr>
+                                <th>#Sala</th>
+                                <th>Nombre</th>
+                                <th>Capacidad</th>
+                                <th>Disponible</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salasContainer">
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
+            @* Lista salas *@
+            @* Skeleton lista salas *@
+            <div class="card p-3" aria-hidden="true">
+                <table>
+                    <thead class="sticky-top bg-light ">
+                        <tr class="placeholder-glow">
+                            <th><span class="placeholder col-10"></span></th>
+                            <th><span class="placeholder col-10"></span></th>
+                            <th><span class="placeholder col-10"></span></th>
+                            <th><span class="placeholder col-10"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Enumerable.Range(1, 5))
+                        {
+                            <tr class="placeholder-glow">
+                                <td><span class="placeholder col-5"></span></td>
+                                <td><span class="placeholder col-10"></span></td>
+                                <td><span class="placeholder col-7"></span></td>
+                                <td><span class="placeholder col-10"></span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @* Skeleton lista salas *@
         </div>
         <div class=" col  col-12 col-lg-6 col-xl-8">
             <h1>Reservas</h1>
-            <form id="reservationForm" class="was-validated border rounded p-3">
-                <div class="mb-3">
-                    <select id="selectRoom" class="form-select" required aria-label="select room">
-                        <option value="">Salas disponibles</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                    <div class="invalid-feedback">Seleccione sala</div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="validationBookerName" class="form-label">Reservador</label>
-                    <input type="text" class="form-control" id="validationBookerName" placeholder="" required />
-                    <div class="invalid-feedback">
-                        Por favor proporcione el nombre de quien reserva.
+            <form id="reservationForm" class="border rounded p-3">
+                <div class="d-flex flex-row">
+                    <div class="mb-3 col">
+                        <label class="form-label">Sala</label>
+                        <select id="selectRoom" class="form-select" required aria-label="select room">
+                            <option value="">Salas disponibles</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <div class="invalid-feedback">Seleccione sala</div>
+                    </div>
+                    <div class="mb-3 col">
+                        <label class="form-label">Reservador</label>
+                        <input type="text" class="form-control" id="validationBookerName" placeholder="" required />
+                        <div class="invalid-feedback">
+                            Por favor proporcione el nombre de quien reserva.
+                        </div>
+                    </div>
+                    <div class="mb-3 col">
+                        <label class="form-label">Fecha</label>
+                        <input type="date" class="form-control" id="validationBookDate" required />
+                        <div class="invalid-feedback">
+                            Por favor proporcione la fecha para la cual desea hacer la reserva.
+                        </div>
                     </div>
                 </div>
-
-                <div class="mb-3">
-                    <label for="validationBookDate" class="form-label">Fecha</label>
-                    <input type="date" class="form-control" id="validationBookDate" required />
-                    <div class="invalid-feedback">
-                        Por favor proporcione la fecha para la cual desea hacer la reserva.
-                    </div>
-                </div>
-
                 <div class="col-12 mb-3">
                     <button id="tobook" class="btn btn-primary" type="submit">Reservar</button>
-                    <button id="togetbook" class="btn btn-success" type="submit">Obtener</button>
+                    <button id="togetroom" class="btn btn-success" type="submit">Obtener</button>
                 </div>
             </form>
         </div>
